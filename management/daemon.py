@@ -535,7 +535,7 @@ def smtp_relay_get():
 @authorized_personnel_only
 def smtp_relay_set():
 	config = utils.load_settings(env)
-	newconf = request.form
+	newconf = request.get_json(force = True)
 	try:
 		# Write on Postfix config
 		# Write on daemon env
