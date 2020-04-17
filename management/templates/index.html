@@ -313,7 +313,7 @@
 		}
 
 		var api_credentials = ["", ""];
-		function api(url, method, data, callback, callback_error) {
+		function api(url, method, data, callback, callback_error, json) {
 			// from http://www.webtoolkit.info/javascript-base64.html
 			function base64encode(input) {
 				_keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
@@ -354,7 +354,7 @@
 
 				// the custom DNS api sends raw POST/PUT bodies --- prevent URL-encoding
 				processData: typeof data != "string",
-				mimeType: typeof data == "string" ? "text/plain; charset=ascii" : null,
+				mimeType: json ? "application/json" : typeof data == "string" ? "text/plain; charset=ascii" : null,
 
 				beforeSend: function (xhr) {
 					// We don't store user credentials in a cookie to avoid the hassle of CSRF

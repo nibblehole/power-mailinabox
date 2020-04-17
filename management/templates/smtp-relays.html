@@ -133,11 +133,8 @@
 					return false
 				})
 			},
-			(text, xhr) => {
-				if (xhr.status != 403) {
-					show_modal_error("Error", `<h5>${xhr}</h5><br><pre>${text}</pre><br>Welp, oof`)
-				}
-			}
+			null,
+			true
 		)
 	}
 </script>

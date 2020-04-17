@@ -524,18 +524,18 @@ def privacy_status_set():
 @authorized_personnel_only
 def smtp_relay_get():
 	config = utils.load_settings(env)
-	return {
+	return json_response({
 		"enabled": config.get("SMTP_RELAY_ENABLED", True),
 		"host": config.get("SMTP_RELAY_HOST", ""),
 		"auth_enabled": config.get("SMTP_RELAY_AUTH", False),
 		"user": config.get("SMTP_RELAY_USER", "")
-	}
+	})
 
 @app.route('/system/smtp/relay', methods=["POST"])
 @authorized_personnel_only
 def smtp_relay_set():
 	config = utils.load_settings(env)
-	newconf = request.get_json(force = True)
+	newconf = request.json
 	try:
 		# Write on Postfix config
 		# Write on daemon env
