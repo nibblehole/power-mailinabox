@@ -994,6 +994,7 @@ if __name__ == "__main__":
 	elif sys.argv[1] == "--check-primary-hostname":
 		# See if the primary hostname appears resolvable and has a signed certificate.
 		domain = env['PRIMARY_HOSTNAME']
+		print(f"Primary hostname is '{domain}'")
 		if query_dns(domain, "A") != env['PUBLIC_IP']:
 			sys.exit(1)
 		ssl_certificates = get_ssl_certificates(env)
