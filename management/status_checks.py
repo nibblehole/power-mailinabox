@@ -996,14 +996,21 @@ if __name__ == "__main__":
 		domain = env['PRIMARY_HOSTNAME']
 		print(f"Primary hostname is '{domain}'")
 		if query_dns(domain, "A") != env['PUBLIC_IP']:
+			print("> Vibe check failed")
 			sys.exit(1)
+		print("DNS Resolution is ok!")
 		ssl_certificates = get_ssl_certificates(env)
+		print("Getting SSL files...")
 		tls_cert = get_domain_ssl_files(domain, ssl_certificates, env)
 		if not os.path.exists(tls_cert["certificate"]):
+			print("> Vibe check failed")
 			sys.exit(1)
+		print("Fetching cert status...")
 		cert_status, cert_status_details = check_certificate(domain, tls_cert["certificate"], tls_cert["private-key"], warn_if_expiring_soon=False)
 		if cert_status != "OK":
+			print("> Vibe check failed")
 			sys.exit(1)
+		print("Vibe check passed")
 		sys.exit(0)
 
 	elif sys.argv[1] == "--version":
